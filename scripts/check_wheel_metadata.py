@@ -13,7 +13,11 @@ STDLIB_NAMES = set(sysconfig.get_path_names()) | set(sys.stdlib_module_names)
 NON_PACKAGE_DIRS = {"tests", "test", "build", "dist", "scripts"}
 
 # Casos onde o nome do import difere do nome do pacote distribuído no PyPI.
-IMPORT_TO_DIST = {"yaml": "pyyaml"}
+IMPORT_TO_DIST = {
+    "yaml": "pyyaml",
+    "dateutil": "python-dateutil",
+    "googleapiclient": "google-api-python-client",
+}
 
 
 def top_level_imports(package_dir: Path) -> set[str]:
@@ -51,15 +55,19 @@ def main() -> int:
         and not p.name.endswith(".egg-info")
         and (p / "__init__.py").exists()
     ]
+    own_names = {p.name.lower() for p in package_dirs}
     imports = set()
     for package_dir in package_dirs:
         imports |= top_level_imports(package_dir)
+    imports = {n for n in imports if n.lower() not in own_names}
 
     declared = requires_dist(wheel_path)
-    missing = {
-        name for name in imports
-        if IMPORT_TO_DIST.get(name, name).lower() not in declared
-    }
+
+    def is_declared(name: str) -> bool:
+        candidate = IMPORT_TO_DIST.get(name, name).lower()
+        return candidate in declared or candidate.replace("_", "-") in declared
+
+    missing = {name for name in imports if not is_declared(name)}
 
     if missing:
         print(f"Imports de terceiro sem Requires-Dist no wheel: {sorted(missing)}")
