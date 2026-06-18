@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "TaskFlowPy"
-version = "0.1.0"
+version = "0.2.0"
 description = "Um gerenciador de tarefas simples e eficiente para projetos Python, com suporte a JSON e SQLite."
 readme = "README.md"
 license = { file = "LICENSE" } # Ou "MIT" direto, se preferir.
