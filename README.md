@@ -73,13 +73,14 @@ TaskFlowPy/
 │
 ├── TaskFlowPy/               # 📦 Código do pacote
 │   ├── __init__.py
+│   ├── cli.py                    # 🖥 Interface de linha de comando
 │   ├── task_manager.py          # 🔥 Implementação principal
 │   ├── storage.py               # 📂 Gerenciamento de armazenamento
 │
 ├── tests/                       # 🧪 Testes unitários
 │   ├── test_task_manager.py
 │
-├── setup.py                     # ⚙️ Configuração do pacote
+├── pyproject.toml                # ⚙️ Configuração do pacote
 ├── README.md                    # 📚 Documentação do projeto
 ├── LICENSE                      # 📜 Licença MIT
 └── MANIFEST.in                   # 📋 Inclusão de arquivos extras
