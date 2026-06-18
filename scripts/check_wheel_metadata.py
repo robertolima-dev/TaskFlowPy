@@ -17,6 +17,8 @@ IMPORT_TO_DIST = {
     "yaml": "pyyaml",
     "dateutil": "python-dateutil",
     "googleapiclient": "google-api-python-client",
+    "google": "google-auth",
+    "jwt": "pyjwt",
 }
 
 
